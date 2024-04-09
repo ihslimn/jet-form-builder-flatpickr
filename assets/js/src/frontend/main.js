@@ -40,7 +40,7 @@ function flatpickrDateTime( element ) {
 	flatpickr( element, {
 		altInput: true,
 		enableTime: true,
-		altFormat: 'd.m.Y',
+		altFormat: 'd.m.Y H:i',
 		onClose: function( selected, asString ) {
 			getInput( element ).value.current = asString;
 		}
@@ -52,7 +52,8 @@ function flatpickrTime( element ) {
 		altInput: true,
 		enableTime: true,
 		noCalendar: true,
-		altFormat: 'd.m.Y',
+		altFormat: 'H:i',
+		dateFormat: 'H:i',
 		onClose: function( selected, asString ) {
 			getInput( element ).value.current = asString;
 		}
