@@ -1,4 +1,4 @@
-import { SUPPORTED_BLOCKS, FLATPICKR_ENABLED, FLATPICKR_24HOUR, FLATPICKR_MIN_INC, FLATPICKR_FORMAT } from './constants';
+import { SUPPORTED_BLOCKS, FLATPICKR_ENABLED, FLATPICKR_24HOUR, FLATPICKR_MIN_INC, FLATPICKR_DISABLED_WEEKDAYS, FLATPICKR_FORMAT } from './constants';
 
 function registerAttributes( settings, name ) {
 
@@ -23,6 +23,10 @@ function registerAttributes( settings, name ) {
 		[ FLATPICKR_MIN_INC ]: {
 			type: 'string',
 			default: '1',
+		},
+		[ FLATPICKR_DISABLED_WEEKDAYS ]: {
+			type: 'string',
+			default: '',
 		},
 	};
 

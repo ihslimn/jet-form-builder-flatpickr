@@ -3,8 +3,10 @@ import {
 		FLATPICKR_ENABLED,
 		FLATPICKR_24HOUR,
 		FLATPICKR_MIN_INC,
+		FLATPICKR_DISABLED_WEEKDAYS,
 		FLATPICKR_FORMAT,
 		DATE_FIELD,
+		TIME_FIELD,
 	} from './constants';
 
 const { addFilter } = wp.hooks;
@@ -14,8 +16,6 @@ const { InspectorControls } = wp.blockEditor;
 const { TextControl, ToggleControl, Panel, PanelRow, PanelBody, __experimentalNumberControl: NumberControl } = wp.components;
 
 const addControls = createHigherOrderComponent( ( BlockEdit ) => {
-
-
 
 	return ( props ) => {
 
@@ -91,6 +91,18 @@ const addControls = createHigherOrderComponent( ( BlockEdit ) => {
 											value={ attributes[ FLATPICKR_FORMAT ] }
 											onChange={ newValue => {
 												setAttributes( { [ FLATPICKR_FORMAT ] : newValue } );
+											} }
+										/>
+									</PanelRow> 
+								}
+								{ attributes[ FLATPICKR_ENABLED ] && blockName !== TIME_FIELD &&
+									<PanelRow>
+										<TextControl
+											label="Disabled week days"
+											help={ 'Comma-separated day numbers; Sunday is 0, Saturday is 6' }
+											value={ attributes[ FLATPICKR_DISABLED_WEEKDAYS ] }
+											onChange={ newValue => {
+												setAttributes( { [ FLATPICKR_DISABLED_WEEKDAYS ] : newValue.replaceAll( /[^\d,]/g, '' ) } );
 											} }
 										/>
 									</PanelRow> 

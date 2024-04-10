@@ -2,6 +2,7 @@ import flatpickr from 'flatpickr';
 
 const {
 		addAction,
+		applyFilters,
 	} = window.JetPlugins.hooks;
 
 addAction(
@@ -32,15 +33,32 @@ addAction(
 	}
 );
 
+function isDisabledDate( element, date ) {
+	const disabledDays = element.dataset?.flatpickrDisabledWeekdays || false;
+	const isDisabled = disabledDays ? disabledDays.split( ',' ).includes( date.getDay().toString() ) : false;
+
+	return applyFilters( 'jfb-flatpickr.input.isDisabledDate', isDisabled, element, date );
+}
+
 function flatpickrDate( element ) {
-	flatpickr( element, {
+	let params = {
 		altInput: true,
 		altFormat: 'd.m.Y'
-	} );
+	};
+
+	params.disable = [
+		function( date ) {
+			return isDisabledDate( element, date );
+		}
+	];
+
+	params = applyFilters( 'jfb-flatpickr.input.params', params, element );
+
+	flatpickr( element, params );
 }
 
 function flatpickrDateTime( element ) {
-	flatpickr( element, {
+	let params = {
 		altInput: true,
 		enableTime: true,
 		altFormat: 'd.m.Y H:i',
@@ -49,11 +67,21 @@ function flatpickrDateTime( element ) {
 		onClose: function( selected, asString ) {
 			getInput( element ).value.current = asString;
 		}
-	} );
+	};
+
+	params.disable = [
+		function( date ) {
+			return isDisabledDate( element, date );
+		}
+	];
+
+	params = applyFilters( 'jfb-flatpickr.input.params', params, element );
+
+	flatpickr( element, params );
 }
 
 function flatpickrTime( element ) {
-	flatpickr( element, {
+	let params = {
 		altInput: true,
 		enableTime: true,
 		noCalendar: true,
@@ -61,7 +89,11 @@ function flatpickrTime( element ) {
 		dateFormat: 'H:i',
 		time_24hr: element.dataset.flatpickr24 ? true : false,
 		minuteIncrement: element.dataset.flatpickrMinInc || 1
-	} );
+	};
+
+	params = applyFilters( 'jfb-flatpickr.input.params', params, element );
+
+	flatpickr( element, params );
 }
 
 function getInput( element ) {

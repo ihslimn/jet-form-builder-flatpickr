@@ -42,15 +42,16 @@ class Block_Attributes {
 		$hours_24 = isset( $saved_attrs['jfb_flatpickr_24h'] ) ? $saved_attrs['jfb_flatpickr_24h'] : true;
 		$min_inc  = isset( $saved_attrs['jfb_flatpickr_min_inc'] ) ? $saved_attrs['jfb_flatpickr_min_inc'] : 1;
 
-		switch ( $saved_attrs['type'] ) {
-			case 'datetime-field':
-			case 'time-field':
+		if ( in_array( $saved_attrs['type'], array( 'datetime-field', 'time-field' ) ) ) {
 				if ( $hours_24 ) {
 					$attrs['data-flatpickr24'] = 1;
 				}
 				$attrs['data-flatpickr-min-inc'] = $min_inc;
-				break;
 		}
+
+		if ( in_array( $saved_attrs['type'], array( 'date-field', 'datetime-field' ) ) && ! empty( $saved_attrs['jfb_flatpickr_disabled_weekdays'] ) ) {
+			$attrs['data-flatpickr-disabled-weekdays'] = $saved_attrs['jfb_flatpickr_disabled_weekdays'];
+	}
 
 		if ( ! $this->script_enqueued ) {
 			jfb_flatpickr()->assets->frontend();
