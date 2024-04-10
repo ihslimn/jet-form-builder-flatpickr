@@ -62,6 +62,36 @@ module.exports = [
 					loader: 'babel-loader',
 					exclude: /node_modules/
 				},
+			]
+		},
+	},
+	{
+		name: 'frontend-css',
+		context: path.resolve( __dirname, 'src' ),
+		entry: {
+			'flatpickr-import.js': 'frontend/lib/flatpickr-css-import.js',
+		},
+		output: {
+			path: path.resolve( __dirname ),
+			filename: '[name]'
+		},
+		resolve: {
+			modules: [
+				path.resolve( __dirname, 'src' ),
+				'node_modules'
+			],
+			extensions: [ '.js' ],
+			alias: {
+				'@': path.resolve( __dirname, 'src' ),
+			}
+		},
+		module: {
+			rules: [
+				{
+					test: /\.js$/,
+					loader: 'babel-loader',
+					exclude: /node_modules/
+				},
 				{
 					test: /\.css$/,
 					use: [
@@ -72,11 +102,11 @@ module.exports = [
 			]
 		},
 		plugins: [
-			new MiniCssExtractPlugin({
+			new MiniCssExtractPlugin( {
 				filename: function( { chunk } ) {
-					return `../css/${chunk.name.replace('.js', '')}.css`;
+					return `../css/lib/${chunk.name.replace('-import.js', '')}.css`;
 				}
-			}),
+			} ),
 		],
 	},
 ];

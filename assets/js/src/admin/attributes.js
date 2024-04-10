@@ -1,4 +1,4 @@
-import { SELECT_ALL_ENABLED, SELECT_ALL_LABEL, DESELECT_ALL_LABEL, SUPPORTED_BLOCKS, ADD_AS_BUTTONS, DEFAULT_ALL } from './constants';
+import { SUPPORTED_BLOCKS, FLATPICKR_ENABLED, FLATPICKR_24HOUR, FLATPICKR_MIN_INC, FLATPICKR_FORMAT } from './constants';
 
 function registerAttributes( settings, name ) {
 
@@ -8,25 +8,21 @@ function registerAttributes( settings, name ) {
 
 	settings.attributes = {
 		...settings.attributes,
-		[ DEFAULT_ALL ]: {
+		[ FLATPICKR_ENABLED ]: {
 			type: 'boolean',
 			default: false,
 		},
-		[ SELECT_ALL_ENABLED ]: {
+		[ FLATPICKR_24HOUR ]: {
 			type: 'boolean',
-			default: false,
+			default: true,
 		},
-		[ ADD_AS_BUTTONS ]: {
-			type: 'boolean',
-			default: false,
-		},
-		[ SELECT_ALL_LABEL ]: {
+		[ FLATPICKR_FORMAT ]: {
 			type: 'string',
-			default: 'Select All',
+			default: SUPPORTED_BLOCKS[ name ],
 		},
-		[ DESELECT_ALL_LABEL ]: {
+		[ FLATPICKR_MIN_INC ]: {
 			type: 'string',
-			default: 'Deselect All',
+			default: '1',
 		},
 	};
 

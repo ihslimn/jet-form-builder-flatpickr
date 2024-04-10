@@ -1,5 +1,4 @@
-import flatpickr from "flatpickr";
-import styles from "flatpickr/dist/flatpickr.css";
+import flatpickr from 'flatpickr';
 
 const {
 		addAction,
@@ -11,6 +10,10 @@ addAction(
 	function( input ) {
 
 		if ( ! input.nodes || ! input.nodes.length ) {
+			return;
+		}
+
+		if ( ! input.nodes[0].dataset?.flatpickr ) {
 			return;
 		}
 
@@ -41,6 +44,8 @@ function flatpickrDateTime( element ) {
 		altInput: true,
 		enableTime: true,
 		altFormat: 'd.m.Y H:i',
+		time_24hr: element.dataset.flatpickr24 ? true : false,
+		minuteIncrement: element.dataset.flatpickrMinInc || 1,
 		onClose: function( selected, asString ) {
 			getInput( element ).value.current = asString;
 		}
@@ -54,9 +59,8 @@ function flatpickrTime( element ) {
 		noCalendar: true,
 		altFormat: 'H:i',
 		dateFormat: 'H:i',
-		onClose: function( selected, asString ) {
-			getInput( element ).value.current = asString;
-		}
+		time_24hr: element.dataset.flatpickr24 ? true : false,
+		minuteIncrement: element.dataset.flatpickrMinInc || 1
 	} );
 }
 

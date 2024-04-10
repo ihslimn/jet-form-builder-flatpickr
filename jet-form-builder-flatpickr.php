@@ -22,3 +22,9 @@ require_once( 'vendor/autoload.php' );
 add_action( 'plugins_loaded', function() {
 	JetFormBuilder_Flatpickr\Plugin::instance();
 }, 100 );
+
+if ( ! function_exists( 'jfb_flatpickr' ) ) {
+	function jfb_flatpickr() {
+		return JetFormBuilder_Flatpickr\Plugin::instance();
+	}
+}

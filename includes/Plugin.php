@@ -15,6 +15,8 @@ class Plugin {
 
 	public $settings = null;
 
+	public $assets = null;
+
 	private $url = '';
 
 	public $version = '1.0.0';
@@ -63,8 +65,8 @@ class Plugin {
 	}
 
 	public function init() {
-		new Assets();
-		//new Block_Attributes();
+		$this->assets = new Assets();
+		new Block_Attributes();
 	}
 
 }

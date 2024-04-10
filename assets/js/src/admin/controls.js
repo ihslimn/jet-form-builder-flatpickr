@@ -1,16 +1,17 @@
 import { 
-		SELECT_ALL_ENABLED, 
-		SELECT_ALL_LABEL, 
-		DESELECT_ALL_LABEL, 
 		SUPPORTED_BLOCKS,
-		ADD_AS_BUTTONS,
-		DEFAULT_ALL} from './constants';
+		FLATPICKR_ENABLED,
+		FLATPICKR_24HOUR,
+		FLATPICKR_MIN_INC,
+		FLATPICKR_FORMAT,
+		DATE_FIELD,
+	} from './constants';
 
 const { addFilter } = wp.hooks;
 const { createHigherOrderComponent } = wp.compose;
 
 const { InspectorControls } = wp.blockEditor;
-const { TextControl, ToggleControl, Panel, PanelRow, PanelBody } = wp.components;
+const { TextControl, ToggleControl, Panel, PanelRow, PanelBody, __experimentalNumberControl: NumberControl } = wp.components;
 
 const addControls = createHigherOrderComponent( ( BlockEdit ) => {
 
@@ -31,14 +32,6 @@ const addControls = createHigherOrderComponent( ( BlockEdit ) => {
 			isSelected,
 		} = props;
 
-		if ( supportType !== 'all' && ! attributes[ supportType ] ) {
-			return ( <BlockEdit { ...props } /> );
-		}
-
-		if ( typeof attributes[ SELECT_ALL_LABEL ] === 'undefined' ) {
-			setAttributes( attributes[ SELECT_ALL_LABEL ] );
-		}
-
 		return (
 			<>
 				<BlockEdit { ...props } />
@@ -46,73 +39,58 @@ const addControls = createHigherOrderComponent( ( BlockEdit ) => {
 					<InspectorControls>
 						<Panel>
 							{ 
-							<PanelBody title="Select All" initialOpen={ false }>
+							<PanelBody title="Flatpickr Settings" initialOpen={ false }>
 								{ <PanelRow>
 										<ToggleControl
-											label="Select all by default"
+											label="Flatpickr enabled"
 											help={
-												attributes[ DEFAULT_ALL ]
-													? 'All options will be selected by default'
+												attributes[ FLATPICKR_ENABLED ]
+													? ''
 													: ''
 											}
-											checked={ attributes[ DEFAULT_ALL ] }
+											checked={ attributes[ FLATPICKR_ENABLED ] }
 											onChange={ () => {
-												setAttributes( { [ DEFAULT_ALL ] : ! attributes[ DEFAULT_ALL ] } );
+												setAttributes( { [ FLATPICKR_ENABLED ] : ! attributes[ FLATPICKR_ENABLED ] } );
 											} }
 										/>
 									</PanelRow> 
 								}
-								{ <PanelRow>
-										<ToggleControl
-											label="Enable 'Select All'"
-											help={
-												attributes[ SELECT_ALL_ENABLED ]
-													? 'Enabled.'
-													: 'Disabled.'
-											}
-											checked={ attributes[ SELECT_ALL_ENABLED ] }
-											onChange={ () => {
-												setAttributes( { [ SELECT_ALL_ENABLED ] : ! attributes[ SELECT_ALL_ENABLED ] } );
-											} }
-										/>
-									</PanelRow> 
-								}
-								{ attributes[ SELECT_ALL_ENABLED ] &&
+								{ attributes[ FLATPICKR_ENABLED ] && blockName !== 'jet-forms/date-field' &&
 									<PanelRow>
 										<ToggleControl
-											label="Add as buttons"
+											label="24h time format"
 											help={
-												attributes[ ADD_AS_BUTTONS ]
-													? '"Select All" and "Deselect All" buttons will be added'
-													: 'The first option will be a "Select All" option'
+												attributes[ FLATPICKR_24HOUR ]
+													? ''
+													: ''
 											}
-											checked={ attributes[ ADD_AS_BUTTONS ] }
+											checked={ attributes[ FLATPICKR_24HOUR ] }
 											onChange={ () => {
-												setAttributes( { [ ADD_AS_BUTTONS ] : ! attributes[ ADD_AS_BUTTONS ] } );
+												setAttributes( { [ FLATPICKR_24HOUR ] : ! attributes[ FLATPICKR_24HOUR ] } );
 											} }
 										/>
 									</PanelRow> 
 								}
-								{ attributes[ SELECT_ALL_ENABLED ] &&
+								{ attributes[ FLATPICKR_ENABLED ] && blockName !== DATE_FIELD &&
 									<PanelRow>
-										<TextControl
-											label="Select All label"
-											help={ '' }
-											value={ attributes[ SELECT_ALL_LABEL ] }
-											onChange={ newValue => {
-												setAttributes( { [ SELECT_ALL_LABEL ] : newValue } );
+										<NumberControl
+											label="Minute increment"
+											labelPosition="top"
+											value={ attributes[ FLATPICKR_MIN_INC ] }
+											onChange={ ( newValue ) => {
+												setAttributes( { [ FLATPICKR_MIN_INC ]: parseInt( newValue ) } );
 											} }
 										/>
 									</PanelRow> 
 								}
-								{ attributes[ SELECT_ALL_ENABLED ] && attributes[ ADD_AS_BUTTONS ] &&
+								{ attributes[ FLATPICKR_ENABLED ] &&
 									<PanelRow>
 										<TextControl
-											label="Deselect All label"
+											label="Visible date format"
 											help={ '' }
-											value={ attributes[ DESELECT_ALL_LABEL ] }
+											value={ attributes[ FLATPICKR_FORMAT ] }
 											onChange={ newValue => {
-												setAttributes( { [ DESELECT_ALL_LABEL ] : newValue } );
+												setAttributes( { [ FLATPICKR_FORMAT ] : newValue } );
 											} }
 										/>
 									</PanelRow> 

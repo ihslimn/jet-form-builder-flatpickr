@@ -1,0 +1,1 @@
+import * as flatpickDefault from "flatpickr/dist/flatpickr.css";

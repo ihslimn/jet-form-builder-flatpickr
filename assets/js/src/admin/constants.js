@@ -1,24 +1,23 @@
-const SELECT_ALL_ENABLED = 'jfb_select_all_options_enabled';
-const SELECT_ALL_LABEL = 'jfb_select_all_options_select_label';
-const DESELECT_ALL_LABEL = 'jfb_select_all_options_deselect_label';
-const ADD_AS_BUTTONS = 'jfb_select_all_options_add_as_buttons';
-const DEFAULT_ALL = 'jfb_select_all_options_default_all_selected';
+const FLATPICKR_ENABLED = 'jfb_flatpickr_enabled';
+const FLATPICKR_24HOUR = 'jfb_flatpickr_24h';
+const FLATPICKR_FORMAT = 'jfb_flatpickr_format';
+const FLATPICKR_MIN_INC = 'jfb_flatpickr_min_inc';
 
-const CHECKBOX_FIELD = 'jet-forms/checkbox-field';
-const SELECT_FIELD   = 'jet-forms/select-field';
+const DATE_FIELD = 'jet-forms/date-field';
+const DATETIME_FIELD   = 'jet-forms/datetime-field';
+const TIME_FIELD   = 'jet-forms/time-field';
 
 const SUPPORTED_BLOCKS = {
-				[ CHECKBOX_FIELD ] : 'all',
-				[ SELECT_FIELD ] : 'multiple',
+				[ DATE_FIELD ] : 'd.m.Y',
+				[ DATETIME_FIELD ] : 'd.m.Y H:i',
+				[ TIME_FIELD ] : 'H:i',
 			};
 
 export {
-	SELECT_ALL_ENABLED,
-	SELECT_ALL_LABEL,
-	DESELECT_ALL_LABEL,
+	FLATPICKR_ENABLED,
+	FLATPICKR_24HOUR,
+	FLATPICKR_FORMAT,
 	SUPPORTED_BLOCKS,
-	CHECKBOX_FIELD,
-	SELECT_FIELD,
-	ADD_AS_BUTTONS,
-	DEFAULT_ALL,
+	FLATPICKR_MIN_INC,
+	DATE_FIELD,
 };
