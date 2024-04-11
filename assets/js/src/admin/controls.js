@@ -120,6 +120,6 @@ const addControls = createHigherOrderComponent( ( BlockEdit ) => {
 
 addFilter(
 	'editor.BlockEdit',
-	'jfb-select-all-options/editor-controls',
+	'jfb-flatpickr/editor-controls',
 	addControls
 );
