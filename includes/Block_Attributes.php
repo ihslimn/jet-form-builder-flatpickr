@@ -51,7 +51,11 @@ class Block_Attributes {
 
 		if ( in_array( $saved_attrs['type'], array( 'date-field', 'datetime-field' ) ) && ! empty( $saved_attrs['jfb_flatpickr_disabled_weekdays'] ) ) {
 			$attrs['data-flatpickr-disabled-weekdays'] = $saved_attrs['jfb_flatpickr_disabled_weekdays'];
-	}
+		}
+
+		if ( ! empty( $saved_attrs['jfb_flatpickr_advanced_config'] ) ) {
+			$attrs['data-flatpickr-advanced-config'] = preg_replace( '/\s/', '', $saved_attrs['jfb_flatpickr_advanced_config'] );
+		}
 
 		if ( ! $this->script_enqueued ) {
 			jfb_flatpickr()->assets->frontend();

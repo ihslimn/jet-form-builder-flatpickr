@@ -3,6 +3,7 @@ const FLATPICKR_24HOUR = 'jfb_flatpickr_24h';
 const FLATPICKR_FORMAT = 'jfb_flatpickr_format';
 const FLATPICKR_MIN_INC = 'jfb_flatpickr_min_inc';
 const FLATPICKR_DISABLED_WEEKDAYS = 'jfb_flatpickr_disabled_weekdays';
+const FLATPICKR_ADVANCED_CONFIG = 'jfb_flatpickr_advanced_config';
 
 const DATE_FIELD = 'jet-forms/date-field';
 const DATETIME_FIELD   = 'jet-forms/datetime-field';
@@ -23,4 +24,5 @@ export {
 	FLATPICKR_DISABLED_WEEKDAYS,
 	DATE_FIELD,
 	TIME_FIELD,
+	FLATPICKR_ADVANCED_CONFIG,
 };

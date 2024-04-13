@@ -2,6 +2,7 @@ import flatpickr from 'flatpickr';
 
 const {
 		addAction,
+		addFilter,
 		applyFilters,
 	} = window.JetPlugins.hooks;
 
@@ -40,17 +41,47 @@ function isDisabledDate( element, date ) {
 	return applyFilters( 'jfb-flatpickr.input.isDisabledDate', isDisabled, element, date );
 }
 
+addFilter( 'jfb-flatpickr.input.params', 'jfb-flatpickr.input.advancedConfig', function( params, element ) {
+
+	try {
+		let advancedConfig = element.dataset.flatpickrAdvancedConfig;
+
+		if ( ! advancedConfig ) {
+			return params;
+		}
+
+		advancedConfig = JSON.parse(advancedConfig );
+
+		for ( const param in advancedConfig ) {
+			if ( params[ param ] && Array.isArray( params[ param ] ) ) {
+				params[ param ] = params[ param ].concat( Array.isArray( advancedConfig[ param ] ) ? advancedConfig[ param ] : [ advancedConfig[ param ] ] );
+			}
+		}
+
+		return params;
+	} catch ( e ) {
+		console.group( 'Invalid config format in "' + element.name + '" field' );
+		console.error( e );
+		console.log( element );
+		console.groupEnd();
+		return params;
+	}
+
+} );
+
 function flatpickrDate( element ) {
 	let params = {
 		altInput: true,
 		altFormat: 'd.m.Y'
 	};
 
-	params.disable = [
-		function( date ) {
-			return isDisabledDate( element, date );
-		}
-	];
+	if ( element.dataset?.flatpickrDisabledWeekdays ) {
+		params.disable = [
+			function( date ) {
+				return isDisabledDate( element, date );
+			}
+		];
+	}
 
 	params = applyFilters( 'jfb-flatpickr.input.params', params, element );
 
@@ -69,11 +100,13 @@ function flatpickrDateTime( element ) {
 		}
 	};
 
-	params.disable = [
-		function( date ) {
-			return isDisabledDate( element, date );
-		}
-	];
+	if ( element.dataset?.flatpickrDisabledWeekdays ) {
+		params.disable = [
+			function( date ) {
+				return isDisabledDate( element, date );
+			}
+		];
+	}
 
 	params = applyFilters( 'jfb-flatpickr.input.params', params, element );
 

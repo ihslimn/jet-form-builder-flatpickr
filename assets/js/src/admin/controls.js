@@ -7,13 +7,23 @@ import {
 		FLATPICKR_FORMAT,
 		DATE_FIELD,
 		TIME_FIELD,
+		FLATPICKR_ADVANCED_CONFIG,
 	} from './constants';
 
 const { addFilter } = wp.hooks;
 const { createHigherOrderComponent } = wp.compose;
 
 const { InspectorControls } = wp.blockEditor;
-const { TextControl, ToggleControl, Panel, PanelRow, PanelBody, __experimentalNumberControl: NumberControl } = wp.components;
+const {
+	TextControl,
+	ToggleControl,
+	Panel,
+	PanelRow,
+	PanelBody,
+	__experimentalNumberControl: NumberControl,
+	TextareaControl,
+	ExternalLink,
+} = wp.components;
 
 const addControls = createHigherOrderComponent( ( BlockEdit ) => {
 
@@ -31,6 +41,18 @@ const addControls = createHigherOrderComponent( ( BlockEdit ) => {
 			setAttributes,
 			isSelected,
 		} = props;
+
+		const advancedConfigHelp = <>
+			{ "Advanced config in JSON format." }
+			&nbsp;
+			{ "See" }
+			&nbsp;
+			<ExternalLink
+				href="https://flatpickr.js.org/options/"
+			>
+				{ "list of options" }.
+			</ExternalLink> { "Only non-function/non-object options can be set this way. Use 'jfb-flatpickr.input.params' filter to set all options." }
+		</>;
 
 		return (
 			<>
@@ -104,6 +126,19 @@ const addControls = createHigherOrderComponent( ( BlockEdit ) => {
 											onChange={ newValue => {
 												setAttributes( { [ FLATPICKR_DISABLED_WEEKDAYS ] : newValue.replaceAll( /[^\d,]/g, '' ) } );
 											} }
+										/>
+									</PanelRow> 
+								}
+								{ attributes[ FLATPICKR_ENABLED ] &&
+									<PanelRow>
+										<TextareaControl
+											label="Advanced config"
+											help={ advancedConfigHelp }
+											value={ attributes[ FLATPICKR_ADVANCED_CONFIG ] }
+											onChange={ newValue => {
+												setAttributes( { [ FLATPICKR_ADVANCED_CONFIG ] : newValue } );
+											} }
+											rows="8"
 										/>
 									</PanelRow> 
 								}
