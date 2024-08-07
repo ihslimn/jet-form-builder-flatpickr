@@ -54,7 +54,7 @@ class Block_Attributes {
 		}
 
 		if ( ! empty( $saved_attrs['jfb_flatpickr_advanced_config'] ) ) {
-			$attrs['data-flatpickr-advanced-config'] = preg_replace( '/\s/', '', $saved_attrs['jfb_flatpickr_advanced_config'] );
+			$attrs['data-flatpickr-advanced-config'] = sanitize_text_field( $saved_attrs['jfb_flatpickr_advanced_config'] );
 		}
 
 		if ( ! $this->script_enqueued ) {

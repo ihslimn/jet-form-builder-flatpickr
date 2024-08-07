@@ -53,7 +53,9 @@ addFilter( 'jfb-flatpickr.input.params', 'jfb-flatpickr.input.advancedConfig', f
 		advancedConfig = JSON.parse(advancedConfig );
 
 		for ( const param in advancedConfig ) {
-			if ( params[ param ] && Array.isArray( params[ param ] ) ) {
+			if ( ! params[ param ] || ! Array.isArray( params[ param ] ) ) {
+				params[param ] = advancedConfig[ param ];
+			} else if ( Array.isArray( params[ param ] ) ) {
 				params[ param ] = params[ param ].concat( Array.isArray( advancedConfig[ param ] ) ? advancedConfig[ param ] : [ advancedConfig[ param ] ] );
 			}
 		}
