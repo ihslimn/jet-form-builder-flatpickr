@@ -3,10 +3,10 @@
  * Plugin Name: JetFormBuilder - Flatpickr
  * Plugin URI:  
  * Description: 
- * Version:     1.0.0
- * Author:      Crocoblock
- * Author URI:  https://crocoblock.com/
- * Text Domain: jsf-store-filters
+ * Version:     1.1.0
+ * Author:      ihslimn
+ * Author URI:  https://github.com/ihslimn
+ * Text Domain: jfb-flatpickr
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path: /languages

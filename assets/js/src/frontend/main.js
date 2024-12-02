@@ -1,4 +1,5 @@
 import flatpickr from 'flatpickr';
+import FlatpickrLanguages from "flatpickr/dist/l10n";
 
 const {
 		addAction,
@@ -58,6 +59,14 @@ addFilter( 'jfb-flatpickr.input.params', 'jfb-flatpickr.input.advancedConfig', f
 			} else if ( Array.isArray( params[ param ] ) ) {
 				params[ param ] = params[ param ].concat( Array.isArray( advancedConfig[ param ] ) ? advancedConfig[ param ] : [ advancedConfig[ param ] ] );
 			}
+		}
+
+		if ( params.locale ) {
+			params.locale = FlatpickrLanguages[ params.locale ] || false;
+		}
+
+		if ( ! params.locale ) {
+			params.locale = 'en';
 		}
 
 		return params;

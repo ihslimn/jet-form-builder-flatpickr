@@ -22,7 +22,7 @@ class Assets {
 			'jfb-select-all-options',
 			Plugin::instance()->get_url( '/assets/js/blocks.js' ),
 			array( 'wp-components', 'wp-element', 'wp-blocks', 'wp-block-editor', 'wp-edit-post' ),
-			Plugin::instance()->version,
+			Plugin::instance()->get_version(),
 			true
 		);
 
@@ -33,7 +33,7 @@ class Assets {
 			'jfb-flatpickr-frontend',
 			Plugin::instance()->get_url( '/assets/js/frontend.js' ),
 			array( 'jet-plugins' ),
-			Plugin::instance()->version,
+			Plugin::instance()->get_version(),
 			true
 		);
 
@@ -59,7 +59,7 @@ class Assets {
 			'jfb-flatpickr-lib',
 			$style_url,
 			array(),
-			Plugin::instance()->version
+			Plugin::instance()->get_version()
 		);
 	}
 

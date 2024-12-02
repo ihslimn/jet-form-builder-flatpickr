@@ -19,7 +19,7 @@ class Plugin {
 
 	private $url = '';
 
-	public $version = '1.0.0';
+	private $version = '1.1.0';
 
 	public function __construct() {
 
@@ -44,6 +44,10 @@ class Plugin {
 		
 		add_action( 'plugins_loaded', array( $this, 'init' ), 150 );
 
+	}
+
+	public function get_version() {
+		return $this->version;
 	}
 
 	public function get_url( $path = '' ) {
